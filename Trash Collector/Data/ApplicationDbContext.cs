@@ -24,6 +24,16 @@ namespace Trash_Collector.Data
                 Name = "Admin",
                 NormalizedName = "ADMIN"
             }
+            new IdentityRole
+            {
+                Name = "Employee",
+                NormalizedName = "EMPLOYEE"
+            }
+            new IdentityRole
+            {
+                Name = "Customer",
+                NormalizedName = "CUSTOMER"
+            }
             );
         }
     }
