@@ -12,6 +12,9 @@ using Trash_Collector.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Trash_Collector.ActionFilters;
 
 namespace Trash_Collector
 {
@@ -32,6 +35,12 @@ namespace Trash_Collector
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
+
+            services.AddScoped<ClaimsPrincipal>(services => services.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddControllers(config =>
+            {
+                config.Filters.Add(typeof(GlobalRouting));
+            });
             
             services.AddControllersWithViews();
             services.AddRazorPages();
