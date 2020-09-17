@@ -17,15 +17,15 @@ namespace Trash_Collector.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
             builder.Entity<IdentityRole>()
-                .HasData(
-                    new IdentityRole
-                    {
-                        Name = "Admin",
-                        NormalizedName = "ADMIN"
-                    }
-                    );
+            .HasData(
+            new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            }
+            );
         }
     }
 }
+
