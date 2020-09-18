@@ -149,5 +149,14 @@ namespace Trash_Collector.Controllers
         {
             return _context.Customer.Any(e => e.Id == id);
         }
+        [HttpPost]
+        public ActionResult SelectWeeklyPickupDay(int id)
+        {
+            var weekDays = new string[5] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            Customer customer = _context.Customer.Where(c => c.Id == id).Single();
+            ViewData["Days"] = new SelectList(weekDays, "Days");        
+            return View(id);
+        }
+
     }
 }
