@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -58,7 +59,14 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userId == null)
+                {                   
+                    customer.IdentityUserID = userId;
+                    _context.Add(customer);
+                    _context.SaveChanges();
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -68,8 +76,7 @@ namespace Trash_Collector.Controllers
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            //var weekDays = new string[5] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-            //ViewBag["Days"] = new SelectList(weekDays.AsEnumerable()); 
+            
 
             if (id == null)
             {

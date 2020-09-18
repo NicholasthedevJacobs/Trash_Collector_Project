@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trash_Collector.Data;
 
-namespace Trash_Collector.Data.Migrations
+namespace Trash_Collector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -48,22 +48,22 @@ namespace Trash_Collector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d02db08-93b9-4f63-8d91-751fd2583d70",
-                            ConcurrencyStamp = "d624505c-0f8d-4906-b8fc-b2062277c437",
+                            Id = "5c855471-21ec-424e-bfde-bf6f07c50580",
+                            ConcurrencyStamp = "67cd7635-b1d5-451e-9146-616b12f7a069",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "648a4cbd-1282-457b-a8c8-1c73876146dc",
-                            ConcurrencyStamp = "1a8863dc-7584-497f-a469-b2f867e30a24",
+                            Id = "22eb4465-b98c-49fa-b491-1448f6528f78",
+                            ConcurrencyStamp = "9a3500af-f530-4544-b07d-ed0a34d750ee",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "591cbd57-7590-45e2-b6bd-aa483be495f6",
-                            ConcurrencyStamp = "e8c22d51-7a76-4ecb-891c-59824a752e3a",
+                            Id = "1acfd598-de34-4ff8-869e-52a764f01763",
+                            ConcurrencyStamp = "9223f51c-0e18-4d64-94f4-4cbc851fd5ec",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -254,6 +254,9 @@ namespace Trash_Collector.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -267,6 +270,8 @@ namespace Trash_Collector.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserID");
 
                     b.ToTable("Customer");
                 });
@@ -341,6 +346,13 @@ namespace Trash_Collector.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Trash_Collector.Models.Customer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserID");
                 });
 #pragma warning restore 612, 618
         }
