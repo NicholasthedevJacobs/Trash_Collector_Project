@@ -68,6 +68,9 @@ namespace Trash_Collector.Controllers
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            //var weekDays = new string[5] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            //ViewBag["Days"] = new SelectList(weekDays.AsEnumerable()); 
+
             if (id == null)
             {
                 return NotFound();
@@ -87,7 +90,7 @@ namespace Trash_Collector.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")] Customer customer)
-        {
+        {//drop breakpoint here dawg
             if (id != customer.Id)
             {
                 return NotFound();
@@ -149,13 +152,30 @@ namespace Trash_Collector.Controllers
         {
             return _context.Customer.Any(e => e.Id == id);
         }
-        [HttpPost]
+        //GET
         public ActionResult SelectWeeklyPickupDay(int id)
         {
-            var weekDays = new string[5] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-            Customer customer = _context.Customer.Where(c => c.Id == id).Single();
-            ViewData["Days"] = new SelectList(weekDays, "Days");        
+            var weekDays = new string[5] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };           
+            ViewBag["Days"] = new SelectList(weekDays.AsEnumerable());
             return View(id);
+        }
+        //POST
+        [HttpPost]
+        public ActionResult SelectWeeklyPickupDay(int id, Customer customer)
+        {
+            try
+            {
+                Customer customer1 = _context.Customer.Where(c => c.Id == id).Single();
+                customer1.PickupDay = customer.PickupDay;
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(id);
+            }
+
         }
 
     }
