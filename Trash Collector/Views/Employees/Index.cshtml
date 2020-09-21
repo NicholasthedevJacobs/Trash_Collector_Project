@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trash_Collector.Models.Employee>
+﻿@model IEnumerable<Trash_Collector.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,6 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.ZipCode)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoneyOwed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrashCollected)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,6 +42,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoneyOwed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrashCollected)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

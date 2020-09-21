@@ -23,36 +23,34 @@ namespace Trash_Collector.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
-            try
-            {
-                //Finding the id of the currently logged in employee, and holding it in a variable.
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var employeeLoggedIn = _context.Employee.Where(e => e.IdentityUserID == userId).Single();
 
-                //Finding the zipcode that matched the employee's zipcode to a list of employees in that zipcode.
-                var customerInZipCode = _context.Customer.Where(c => c.ZipCode == employeeLoggedIn.ZipCode).ToList();
+            ////Finding the id of the currently logged in employee, and holding it in a variable.
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeeLoggedIn = _context.Employee.Where(e => e.IdentityUserID == userId).SingleOrDefault();
 
-                //Matching the customer pickup day to the current day
-                var today = DateTime.Now.DayOfWeek.ToString();
-                var todaysCustomersInZip = customerInZipCode.Where(c => c.PickupDay == today).ToList();
+            //Finding the zipcode that matched the employee's zipcode to a list of employees in that zipcode.
 
-                //Check if customer has suspended service
-                //var customersWithService = todaysCustomersInZip.Where(c => c.StartDateEndOfPickups >= today)
-                var extraPickup = _context.Customer.Where(c => c.ExtraPickup == today).Single();
+            var customerInZipCode = _context.Customer.Where(c => c.ZipCode == employeeLoggedIn.ZipCode).ToList();
+
+            //Matching the customer pickup day to the current day
+            var today = DateTime.Now.DayOfWeek.ToString();
+            var todaysCustomersInZip = customerInZipCode.Where(c => c.PickupDay == today).ToList();
+
+            //Check if customer has suspended service
+            //var customersWithService = todaysCustomersInZip.Where(c => c.StartDateEndOfPickups >= today)
+
+            //Check if customer has extra pickup day
+            //var extraPickup = _context.Customer.Where(c => c.ExtraPickup == today).SingleOrDefault();
 
 
-                //if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
-                //{
-                //    return RedirectToAction("Index", "Customer");
-                //}
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("Oopsie"); 
-            }
-            
+            //if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
+            //{
+            //    return RedirectToAction("Index", "Customer");
+            //}
 
-            return View(await _context.Employee.ToListAsync());
+
+            return View(await _context.Customer.ToListAsync());//maybe change to customer?
+
         }
 
         // GET: Employees/Details/5
@@ -84,7 +82,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,ZipCode")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,ZipCode,IdentityUserID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
