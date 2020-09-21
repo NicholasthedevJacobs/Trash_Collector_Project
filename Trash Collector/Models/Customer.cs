@@ -18,6 +18,8 @@ namespace Trash_Collector.Models
         public string PickupDay { get; set; }
         public string ExtraPickup { get; set; }
         public double MoneyOwed { get; set; }
+        public string StartDateEndOfPickups { get; set; }
+        public string EndDateEndOfPickups { get; set; }
         public bool TrashCollected { get; set; }
 
         [ForeignKey("IdentityUser")]
