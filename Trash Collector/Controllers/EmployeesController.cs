@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,6 +23,14 @@ namespace Trash_Collector.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
+            Employee employee = new Employee();
+            //Customer customer = new Customer();
+            employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).W
+            if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
+            {
+                return RedirectToAction("Index", "Customer");
+            }
+
             return View(await _context.Employee.ToListAsync());
         }
 
@@ -58,11 +67,19 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                //var userId = _context.Customer.Where(c => c.Id == customer.Id).Single();
+                if (employee.Id == 0)//**was userId == null** maybe just make this check if its an int, so like userId > 0 && < 1000000000000000000
+                {
+                    employee.IdentityUserID = userId;
+                    _context.Add(employee);
+                    _context.SaveChanges();
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
+            
         }
 
         // GET: Employees/Edit/5
@@ -93,8 +110,10 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
+            
             if (ModelState.IsValid)
             {
+                
                 try
                 {
                     _context.Update(employee);

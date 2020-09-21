@@ -98,7 +98,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")]
         {//drop breakpoint here dawg
             if (id != customer.Id)
             {
