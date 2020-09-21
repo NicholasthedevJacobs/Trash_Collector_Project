@@ -25,11 +25,11 @@ namespace Trash_Collector.Controllers
         {
             Employee employee = new Employee();
             //Customer customer = new Customer();
-            employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).W
-            if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
-            {
-                return RedirectToAction("Index", "Customer");
-            }
+            //employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).W
+            //if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
+            //{
+            //    return RedirectToAction("Index", "Customer");
+            //}
 
             return View(await _context.Employee.ToListAsync());
         }

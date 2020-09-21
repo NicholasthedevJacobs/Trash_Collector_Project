@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trash_Collector.Data;
 
 namespace Trash_Collector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200921145632_forgotstuff")]
-    partial class forgotstuff
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,22 +48,22 @@ namespace Trash_Collector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0fc117e9-5c61-4dce-ba7f-ac0b26c41c6c",
-                            ConcurrencyStamp = "5ea8279d-b9fa-4907-bbbd-12bbefd3ca65",
+                            Id = "dc0451bd-a6cf-40c5-8a11-0af6f27b3c44",
+                            ConcurrencyStamp = "337a1142-7ae4-47f0-91a7-22c3a5176fb5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f1270cc1-211b-4ddb-95d3-482930841a51",
-                            ConcurrencyStamp = "c8a341ed-e284-40a6-a44a-46acc820f326",
+                            Id = "027124c9-8777-4ee7-9441-632707d0805e",
+                            ConcurrencyStamp = "68a6501c-0e66-485f-8bc7-fda711827351",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "0385bc4a-a6b9-4a13-998a-f27e242a8d58",
-                            ConcurrencyStamp = "11503875-e7cd-4077-ade5-e349b3fdc184",
+                            Id = "a1b4f595-4a5d-42d2-b9ae-9803bd529b75",
+                            ConcurrencyStamp = "fd9c275d-3502-4cc5-8a3e-68cf08b86849",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -277,6 +275,9 @@ namespace Trash_Collector.Migrations
                     b.Property<bool>("TrashCollected")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserID");
@@ -294,6 +295,9 @@ namespace Trash_Collector.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -301,6 +305,8 @@ namespace Trash_Collector.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserID");
 
                     b.ToTable("Employee");
                 });
@@ -357,6 +363,13 @@ namespace Trash_Collector.Migrations
                 });
 
             modelBuilder.Entity("Trash_Collector.Models.Customer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserID");
+                });
+
+            modelBuilder.Entity("Trash_Collector.Models.Employee", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
