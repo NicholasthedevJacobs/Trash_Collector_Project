@@ -55,12 +55,14 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)//[Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")]
         {
             if (ModelState.IsValid)
             {
+                //int userId;
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (userId == null)
+                //var userId = _context.Customer.Where(c => c.Id == customer.Id).Single();
+                if (customer.Id == 0)//**was userId == null** maybe just make this check if its an int, so like userId > 0 && < 1000000000000000000
                 {                   
                     customer.IdentityUserID = userId;
                     _context.Add(customer);
