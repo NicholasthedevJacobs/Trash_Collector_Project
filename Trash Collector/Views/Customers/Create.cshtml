@@ -30,8 +30,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="PickupDay" class="control-label"></label>
-                <input asp-for="PickupDay" class="form-control" />
+                <select asp-for="PickupDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>">
+                @*<input asp-for="PickupDay" class="form-control" />*@
                 <span asp-validation-for="PickupDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDateEndOfPickups" class="control-label"></label>
+                <input asp-for="StartDateEndOfPickups" class="form-control" />
+                <span asp-validation-for="StartDateEndOfPickups" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDateEndOfPickups" class="control-label"></label>
+                <input asp-for="EndDateEndOfPickups" class="form-control" />
+                <span asp-validation-for="EndDateEndOfPickups" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ExtraPickup" class="control-label"></label>
@@ -39,10 +50,10 @@
                 <span asp-validation-for="ExtraPickup" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="MoneyOwed" class="control-label"></label>
-                <input asp-for="MoneyOwed" class="form-control" />
-                <span asp-validation-for="MoneyOwed" class="text-danger"></span>
-            </div>*@
+            <label asp-for="MoneyOwed" class="control-label"></label>
+            <input asp-for="MoneyOwed" class="form-control" />
+            <span asp-validation-for="MoneyOwed" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
