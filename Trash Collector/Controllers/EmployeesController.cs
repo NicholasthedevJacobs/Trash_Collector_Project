@@ -48,8 +48,8 @@ namespace Trash_Collector.Controllers
             //    return RedirectToAction("Index", "Customer");
             //}
 
-
-            return View(await _context.Customer.ToListAsync());//maybe change to customer?
+            return View(todaysCustomersInZip);
+            //return View(await _context.Customer.ToListAsync());//maybe change to customer?
 
         }
 
