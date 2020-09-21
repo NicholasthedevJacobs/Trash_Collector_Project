@@ -48,22 +48,22 @@ namespace Trash_Collector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5c855471-21ec-424e-bfde-bf6f07c50580",
-                            ConcurrencyStamp = "67cd7635-b1d5-451e-9146-616b12f7a069",
+                            Id = "a8528ce6-37db-43c3-ae37-cdd1e569ea4e",
+                            ConcurrencyStamp = "49c15cc6-f127-4aae-bb0a-7c59ef558964",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "22eb4465-b98c-49fa-b491-1448f6528f78",
-                            ConcurrencyStamp = "9a3500af-f530-4544-b07d-ed0a34d750ee",
+                            Id = "c80445b2-a498-4fa7-a190-21835e2144c6",
+                            ConcurrencyStamp = "498f5407-a89f-460b-a20b-6797e2722206",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "1acfd598-de34-4ff8-869e-52a764f01763",
-                            ConcurrencyStamp = "9223f51c-0e18-4d64-94f4-4cbc851fd5ec",
+                            Id = "d7c69e57-8af7-4c28-8e48-939a99ce9afa",
+                            ConcurrencyStamp = "0129e6e3-d5ee-4d5e-94c9-77ba163293e8",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -248,6 +248,9 @@ namespace Trash_Collector.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EndDateEndOfPickups")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ExtraPickup")
                         .HasColumnType("nvarchar(max)");
 
@@ -264,6 +267,9 @@ namespace Trash_Collector.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("PickupDay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartDateEndOfPickups")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TrashCollected")
