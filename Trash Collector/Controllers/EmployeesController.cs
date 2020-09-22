@@ -42,12 +42,6 @@ namespace Trash_Collector.Controllers
             //Check if customer has extra pickup day
             //var extraPickup = _context.Customer.Where(c => c.ExtraPickup == today).SingleOrDefault();
 
-
-            //if (employee.ZipCode == _context.Customer.Where(c => c.ZipCode == employee.ZipCode).Select())
-            //{
-            //    return RedirectToAction("Index", "Customer");
-            //}
-
             return View(todaysCustomersInZip);
             //return View(await _context.Customer.ToListAsync());//maybe change to customer?
 
@@ -187,5 +181,7 @@ namespace Trash_Collector.Controllers
         {
             return _context.Employee.Any(e => e.Id == id);
         }
+
+
     }
 }
