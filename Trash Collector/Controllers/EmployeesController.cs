@@ -21,30 +21,32 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filterDay)
         {
-
             ////Finding the id of the currently logged in employee, and holding it in a variable.
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employeeLoggedIn = _context.Employee.Where(e => e.IdentityUserID == userId).SingleOrDefault();
 
             //Finding the zipcode that matched the employee's zipcode to a list of employees in that zipcode.
-
             var customerInZipCode = _context.Customer.Where(c => c.ZipCode == employeeLoggedIn.ZipCode).ToList();
-
-            //Matching the customer pickup day to the current day
-            var today = DateTime.Now.DayOfWeek.ToString();
-            var todaysCustomersInZip = customerInZipCode.Where(c => c.PickupDay == today).ToList();
+            if (filterDay == null)
+            {
+                var today = DateTime.Now.DayOfWeek.ToString();
+                var todaysCustomersInZip = customerInZipCode.Where(c => c.PickupDay == today).ToList();
+                return View(todaysCustomersInZip);
+            }
+            else
+            {               
+                //Matching the customer pickup day to the current day              
+                var todaysCustomersInZip = customerInZipCode.Where(c => c.PickupDay == filterDay).ToList();
+                return View(todaysCustomersInZip);
+            }
 
             //Check if customer has suspended service
             //var customersWithService = todaysCustomersInZip.Where(c => c.StartDateEndOfPickups >= today)
 
             //Check if customer has extra pickup day
             //var extraPickup = _context.Customer.Where(c => c.ExtraPickup == today).SingleOrDefault();
-
-            return View(todaysCustomersInZip);
-            //return View(await _context.Customer.ToListAsync());//maybe change to customer?
-
         }
 
         // GET: Employees/Details/5

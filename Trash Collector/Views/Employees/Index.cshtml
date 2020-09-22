@@ -10,6 +10,12 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index">
+    <input name="filterDay" />
+    <input type="submit">
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -49,11 +55,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
+            <td>               
                 @Html.DisplayFor(modelItem => item.MoneyOwed)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrashCollected)
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
