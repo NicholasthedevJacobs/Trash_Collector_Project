@@ -1,4 +1,4 @@
-﻿@model Trash_Collector.Models.Employee
+﻿@model Trash_Collector.Models.Customer
 
 @{
     ViewData["Title"] = "Details";
@@ -6,7 +6,7 @@
 }
 
 <h1>Details</h1>
-@section scripts{ 
+@*@section scripts{ 
     <section class="scripts">
         <script type="text/javascript">
             var map;
@@ -21,7 +21,7 @@
                 src="https://maps.googleapis.com/maps/api/js?key=  &callback=initMap">
             
         </script>
-    </section>
+    </section>*@
     
 
 }
@@ -42,10 +42,46 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ZipCode)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PickupDay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PickupDay)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExtraPickup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExtraPickup)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDateEndOfPickups)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDateEndOfPickups)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDateEndOfPickups)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDateEndOfPickups)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MoneyOwed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MoneyOwed)
         </dd>
     </dl>
 </div>

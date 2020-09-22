@@ -64,7 +64,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("Details", "Customers", customer);
+            return View(customer);
             //return View(customer);
         }
 
