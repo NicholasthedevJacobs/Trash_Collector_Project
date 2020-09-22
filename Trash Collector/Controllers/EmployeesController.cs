@@ -105,12 +105,12 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Customer.FindAsync(id);
-            if (employee == null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(customer);
         }
 
         // POST: Employees/Edit/5
@@ -118,9 +118,9 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,ZipCode")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,ZipCode")] 
         {
-            if (id != employee.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -131,12 +131,13 @@ namespace Trash_Collector.Controllers
                 
                 try
                 {
-                    _context.Update(employee);
+                    //customer = _context.Customer.Where(c => c.Id == id).Single();
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!EmployeeExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -147,7 +148,7 @@ namespace Trash_Collector.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(customer);
         }
 
         // GET: Employees/Delete/5

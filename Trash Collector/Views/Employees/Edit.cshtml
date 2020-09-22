@@ -15,15 +15,63 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="MoneyOwed" class="control-label"></label>
-                <input asp-for="MoneyOwed" class="form-control" />
+               
+                <input asp-for="MoneyOwed" type="hidden" />
                 <span asp-validation-for="MoneyOwed" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TrashCollected" class="control-label"></label>
                 <input asp-for="TrashCollected" class="form-control" />
                 <span asp-validation-for="TrashCollected" class="text-danger"></span>
-            </div>          
+            </div>
+            <div class="form-group">
+
+                <input asp-for="FirstName" type="hidden" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="LastName" type="hidden" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="Address" type="hidden" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="ZipCode" type="hidden" />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="PickupDay" type="hidden" />
+                @*<select asp-for="PickupDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>*@
+                <span asp-validation-for="PickupDay" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+
+                <input asp-for="ExtraPickup" type="hidden" />
+                <span asp-validation-for="ExtraPickup" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+
+                <input asp-for="StartDateEndOfPickups" type="hidden" />
+                <span asp-validation-for="StartDateEndOfPickups" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="EndDateEndOfPickups" type="hidden" />
+                <span asp-validation-for="EndDateEndOfPickups" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="IdentityUserID" type="hidden" />
+                <span asp-validation-for="IdentityUserID" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
