@@ -131,6 +131,10 @@ namespace Trash_Collector.Controllers
                 
                 try
                 {
+                    if(customer.TrashCollected == true)
+                    {
+                        customer.MoneyOwed = 20;
+                    }
                     //customer = _context.Customer.Where(c => c.Id == id).Single();
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
