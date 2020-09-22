@@ -57,14 +57,15 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee
+            var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return RedirectToAction("Details", "Customers", customer);
+            //return View(customer);
         }
 
         // GET: Employees/Create
