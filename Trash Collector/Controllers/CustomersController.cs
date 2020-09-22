@@ -99,7 +99,7 @@ namespace Trash_Collector.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")]
-        {//drop breakpoint here dawg
+        {
             if (id != customer.Id)
             {
                 return NotFound();

@@ -105,7 +105,7 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Customer.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
