@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Trash_Collector.Data;
 using Trash_Collector.Models;
 
@@ -57,7 +59,7 @@ namespace Trash_Collector.Controllers
         {
 
             var customerToConvert = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
-            //var addressCust = _context.Customer.Where(c => c.Address == customerToConvert.Address).Single();
+           
             string customerAddress = customerToConvert.Address;
             string fixedAddress = customerAddress.Replace(" ", "+");
             
@@ -69,7 +71,13 @@ namespace Trash_Collector.Controllers
                 var json = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject(json);
+                
+                //var lat = result["lat"];
 
+                var details = JObject.Parse(json);
+                var latitude = details.SelectToken("results[0].geometry.bounds.northeast.lat").ToString();
+                var longitude = details.SelectToken("results[0].geometry.bounds.northeast.lng").ToString();
+                //var result = 
             }
             if (id == null)
             {
