@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -72,12 +73,15 @@ namespace Trash_Collector.Controllers
 
                 var result = JsonConvert.DeserializeObject(json);
                 
-                //var lat = result["lat"];
 
                 var details = JObject.Parse(json);
-                var latitude = details.SelectToken("results[0].geometry.bounds.northeast.lat").ToString();
-                var longitude = details.SelectToken("results[0].geometry.bounds.northeast.lng").ToString();
-                //var result = 
+                double latitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lat");
+                double longitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lng");
+                customerToConvert.Latitude = latitude;
+                customerToConvert.Longitude = longitude;
+                _context.Update(customerToConvert);
+                _context.SaveChanges();
+
             }
             if (id == null)
             {
