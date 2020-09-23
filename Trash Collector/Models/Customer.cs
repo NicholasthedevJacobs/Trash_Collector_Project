@@ -10,6 +10,12 @@ namespace Trash_Collector.Models
 {
     public class Customer
     {
+        [NotMapped]
+        public double Longitude { get; set; }
+        [NotMapped]
+        public double Latitude { get; set; }
+
+
         [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
