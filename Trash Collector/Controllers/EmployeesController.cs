@@ -55,6 +55,22 @@ namespace Trash_Collector.Controllers
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+            var customerToConvert = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
+            //var addressCust = _context.Customer.Where(c => c.Address == customerToConvert.Address).Single();
+            string customerAddress = customerToConvert.Address;
+            string fixedAddress = customerAddress.Replace(" ", "+");
+            
+            
+            HttpClient httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?address= + {fixedAddress} + &key=AIzaSyDS0ZYjjMymQpCdTo5IfC5RmQHxXY7CWEk");
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject(json);
+
+            }
             if (id == null)
             {
                 return NotFound();
