@@ -25,7 +25,6 @@ namespace Trash_Collector.Controllers
         {
             _context = context;
         }
-
         // GET: Employees
         public async Task<IActionResult> Index(string filterDay)
         {
@@ -58,22 +57,19 @@ namespace Trash_Collector.Controllers
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-
             var customerToConvert = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
            
             string customerAddress = customerToConvert.Address;
             string fixedAddress = customerAddress.Replace(" ", "+");
-            
-            
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?address= + {fixedAddress} + &key=AIzaSyDS0ZYjjMymQpCdTo5IfC5RmQHxXY7CWEk");
+                       
+            HttpClient httpClient = new HttpClient();//add new key in and make variable  vvvvvvvvvvvvvvvvVvVvvvvVv
+            HttpResponseMessage response = await httpClient.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?address= + {fixedAddress} + &key={KeysAPI.mapsKey}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject(json);
                 
-
                 var details = JObject.Parse(json);
                 double latitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lat");
                 double longitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lng");
@@ -81,30 +77,24 @@ namespace Trash_Collector.Controllers
                 customerToConvert.Longitude = longitude;
                 _context.Update(customerToConvert);
                 _context.SaveChanges();
-
             }
             if (id == null)
             {
                 return NotFound();
             }
-
             var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
-
             return View(customer);
-            //return View(customer);
         }
-
         // GET: Employees/Create
         public IActionResult Create()
         {
             return View();
         }
-
         // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -115,8 +105,8 @@ namespace Trash_Collector.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                //var userId = _context.Customer.Where(c => c.Id == customer.Id).Single();
-                if (employee.Id == 0)//**was userId == null** maybe just make this check if its an int, so like userId > 0 && < 1000000000000000000
+                
+                if (employee.Id == 0)
                 {
                     employee.IdentityUserID = userId;
                     _context.Add(employee);
@@ -125,10 +115,8 @@ namespace Trash_Collector.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
-            
+            return View(employee);          
         }
-
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -155,20 +143,15 @@ namespace Trash_Collector.Controllers
             if (id != customer.Id)
             {
                 return NotFound();
-            }
-
-            
-
+            }          
             if (ModelState.IsValid)
-            {
-                
+            {               
                 try
                 {
                     if(customer.TrashCollected == true)
                     {
                         customer.MoneyOwed = 20;
                     }
-                    //customer = _context.Customer.Where(c => c.Id == id).Single();
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
@@ -187,7 +170,6 @@ namespace Trash_Collector.Controllers
             }
             return View(customer);
         }
-
         // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -195,17 +177,14 @@ namespace Trash_Collector.Controllers
             {
                 return NotFound();
             }
-
             var employee = await _context.Employee
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
                 return NotFound();
             }
-
             return View(employee);
         }
-
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -216,12 +195,9 @@ namespace Trash_Collector.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool EmployeeExists(int id)
         {
             return _context.Employee.Any(e => e.Id == id);
         }
-
-
     }
 }

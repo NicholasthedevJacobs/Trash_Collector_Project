@@ -19,85 +19,27 @@
         </style>
     </head>
     <body>
-        <h3>My Google Maps Demo</h3>
+        <h3><center>Customer's Trash</center></h3>
         <!--The div element for the map -->
         <div id="map"></div>
         <script>
             // Initialize and add the map
             function initMap() {
-                // The location of Uluru
+                // The location of the Customers house
                 var uluru = { lat: @Html.DisplayFor(model => model.Latitude), lng: @Html.DisplayFor(model => model.Longitude) };
-                // The map, centered at Uluru
+                
                 var map = new google.maps.Map(
                     document.getElementById('map'), { zoom: 15, center: uluru });
-                // The marker, positioned at Uluru
+                // The marker, positioned at Customers house
                 var marker = new google.maps.Marker({ position: uluru, map: map });
             }
         </script>
-        <!--Load the API from the specified URL
-        * The async attribute allows the browser to render the page while the API loads
-        * The key parameter will contain your own API key (which is not needed for this tutorial)
-        * The callback parameter executes the initMap() function
-        -->
+        
         <script defer
                 src="https://maps.googleapis.com/maps/api/js?key=@KeysAPI.mapsKey&callback=initMap">
         </script>
     </body>
 </html>
-
-
-
-<!--<style>
-    #map {
-        height: 100%
-    }
-</style>
-<html>
-<head>
-    <title>Simple Map</title>
-
-
-
-</head>
-<body>
-    <div id="map"></div>
-</body>
-</html>
-<section class="scripts">
-    <script type="text/javascript">
-        "use strict";
-        let map;
-
-        function initMap() {
-            var pin = {
-                lat: @Html.DisplayFor(model => model.Latitude)
-                lng: @Html.DisplayFor(model => model.Longitude)}
-            var marker = new google.maps.Marker({ position: pin, map: map });
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: {
-
-                    lat: -34.397,
-                    lng: 150.644
-                },
-                zoom: 8
-            });
-        }
-
-    </script>
-    @Html.DisplayFor(model => model.Longitude)
-
-    <div>-->@*@KeysAPI.mapsKey*@<!--</div>
-    <iframe width="600"
-            height="450"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=@KeysAPI.mapsKey&q=callback=initMap" allowfullscreen>-->
-        @*&q=Space+Needle,Seattle+WA*@
-    <!--</iframe>
-
-
-
-</section>-->
-
 
 
 }
