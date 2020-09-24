@@ -30,7 +30,13 @@ namespace Trash_Collector.Controllers
         {
             ////Finding the id of the currently logged in employee, and holding it in a variable.
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //If the user is new, redirects to Create page, so they can get an IdentityUserID
             var employeeLoggedIn = _context.Employee.Where(e => e.IdentityUserID == userId).SingleOrDefault();
+            if(employeeLoggedIn == null)
+            {
+                return RedirectToAction("Create");
+            }
 
             //Finding the zipcode that matched the employee's zipcode to a list of employees in that zipcode.
             var customerInZipCode = _context.Customer.Where(c => c.ZipCode == employeeLoggedIn.ZipCode).ToList();
