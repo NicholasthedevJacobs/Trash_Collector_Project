@@ -23,11 +23,15 @@ namespace Trash_Collector.Controllers
         public async Task<IActionResult> Index()
         {
             //****Use this to make it so all customers aren't viewed.****
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //Customer customer = _context.Customer.Where(c => c.IdentityUserID == userId).SingleOrDefault();
             //return View(customer);
-            
-            
+            var customerLoggedIn = _context.Customer.Where(e => e.IdentityUserID == userId).SingleOrDefault();
+            if (customerLoggedIn == null)
+            {
+                return RedirectToAction("Create");
+            }
+
             return View(await _context.Customer.ToListAsync());
         }
         // GET: Customers/Details/5
