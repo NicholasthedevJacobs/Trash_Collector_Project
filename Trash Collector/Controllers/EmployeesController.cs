@@ -57,20 +57,25 @@ namespace Trash_Collector.Controllers
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            //Finds the customer for the details page, and puts in a variable.
             var customerToConvert = _context.Customer.Where(c => c.Id == id).SingleOrDefault();
            
+            //Stores the address in a variable
             string customerAddress = customerToConvert.Address;
+
+            //Replaced the spaces in the address to '+' so geocode can take it in.
             string fixedAddress = customerAddress.Replace(" ", "+");
-                       
-            HttpClient httpClient = new HttpClient();//add new key in and make variable  vvvvvvvvvvvvvvvvVvVvvvvVv
+               
+            //Sets up httpClient, and inputs address into geocode API
+            HttpClient httpClient = new HttpClient();
             HttpResponseMessage response = await httpClient.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?address= + {fixedAddress} + &key={KeysAPI.mapsKey}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync();
-
                 var result = JsonConvert.DeserializeObject(json);
-                
                 var details = JObject.Parse(json);
+
+                //Stores lat/lng data to the specific cutomer object
                 double latitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lat");
                 double longitude = (double)details.SelectToken("results[0].geometry.bounds.northeast.lng");
                 customerToConvert.Latitude = latitude;
@@ -78,6 +83,10 @@ namespace Trash_Collector.Controllers
                 _context.Update(customerToConvert);
                 _context.SaveChanges();
             }
+
+            //Customer object is the same as above, with different variable names.  
+            //Kept seperate in case anything needs change.
+            //This displays the view.
             if (id == null)
             {
                 return NotFound();
@@ -201,3 +210,4 @@ namespace Trash_Collector.Controllers
         }
     }
 }
+                
