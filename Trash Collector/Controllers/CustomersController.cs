@@ -19,13 +19,11 @@ namespace Trash_Collector.Controllers
         {
             _context = context;
         }
-
         // GET: Customers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Customer.ToListAsync());
         }
-
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -33,23 +31,19 @@ namespace Trash_Collector.Controllers
             {
                 return NotFound();
             }
-
             var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
-
             return View(customer);
         }
-
         // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
-
         // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -59,10 +53,9 @@ namespace Trash_Collector.Controllers
         {
             if (ModelState.IsValid)
             {
-                //int userId;
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                //var userId = _context.Customer.Where(c => c.Id == customer.Id).Single();
-                if (customer.Id == 0)//**was userId == null** maybe just make this check if its an int, so like userId > 0 && < 1000000000000000000
+
+                if (customer.Id == 0)
                 {                   
                     customer.IdentityUserID = userId;
                     _context.Add(customer);
@@ -74,12 +67,9 @@ namespace Trash_Collector.Controllers
             }
             return View(customer);
         }
-
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {
-            
-
+        {            
             if (id == null)
             {
                 return NotFound();
@@ -92,19 +82,17 @@ namespace Trash_Collector.Controllers
             }
             return View(customer);
         }
-
         // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")]
+        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,Address,PickupDay,ExtraPickup,MoneyOwed")] Can add back later
         {
             if (id != customer.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
@@ -127,7 +115,6 @@ namespace Trash_Collector.Controllers
             }
             return View(customer);
         }
-
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -142,10 +129,8 @@ namespace Trash_Collector.Controllers
             {
                 return NotFound();
             }
-
             return View(customer);
         }
-
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -156,7 +141,6 @@ namespace Trash_Collector.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool CustomerExists(int id)
         {
             return _context.Customer.Any(e => e.Id == id);
@@ -184,8 +168,6 @@ namespace Trash_Collector.Controllers
             {
                 return View(id);
             }
-
         }
-
     }
 }

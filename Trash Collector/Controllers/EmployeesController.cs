@@ -147,7 +147,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,ZipCode")] 
+        public async Task<IActionResult> Edit(int id, Customer customer)//[Bind("Id,FirstName,LastName,ZipCode")] Can add back later
         {
             if (id != customer.Id)
             {
